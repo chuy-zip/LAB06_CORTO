@@ -68,15 +68,23 @@ fun MainActivity(navController: NavController, context: Context){
 fun jsonParse(current: Context) {
     val urllink = "https://api.teleport.org/api/urban_areas/"
     val queue: RequestQueue = Volley.newRequestQueue(current)
-
+    val citiesList = mutableListOf<City>()
 
     val request = StringRequest(
         Request.Method.GET,urllink,
         { response ->
 
             val data = response.toString()
-            val jarray = JSONObject(data).getJSONObject("_links").getJSONArray("ua:item")
-            Log.e("Objects",jarray.toString())
+            val jArray = JSONObject(data).getJSONObject("_links").getJSONArray("ua:item")
+
+
+            for (i in 0 until jArray.length()){
+                val cityObject = jArray.getJSONObject(i)
+                val name = cityObject.getString("name")
+                val href = cityObject.getString("href")
+                citiesList.add(City(name, href))
+            }
+            Log.e("Objects",jArray.toString())
         },
         { })
     queue.add(request)
