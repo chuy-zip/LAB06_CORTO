@@ -8,7 +8,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,7 +22,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,7 +40,6 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.lab06.navigation.AppNavigation
 import com.example.lab06.navigation.AppScreens
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import org.json.JSONObject
 
 class MainActivity : ComponentActivity() {
@@ -63,7 +60,7 @@ fun MainActivity(navController: NavController, context: Context) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF284B630)),
+            .background(Color(0xFF3D51AE)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
@@ -71,7 +68,7 @@ fun MainActivity(navController: NavController, context: Context) {
                 .width(280.dp)
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xffff5757)
+                containerColor = Color(0XFF5DC1B9)
             ),
             onClick = {
 
@@ -90,26 +87,26 @@ fun MainActivity(navController: NavController, context: Context) {
             Text(text = "Fetch Data")
         }
 
-        ShowCitiesScreen(navController = navController, citiesList = citiesList.value)
+        ShowCitiesScreen(context ,navController = navController, citiesList = citiesList.value)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowCitiesScreen(navController: NavController, citiesList: List<City>) {
+fun ShowCitiesScreen(context: Context, navController: NavController, citiesList: List<City>) {
     Column {
 
 
         LazyColumn {
             items(citiesList) { city ->
-                CityItem(city = city, navController = navController)
+                CityItem(context, city = city, navController = navController)
             }
         }
     }
 }
 
 @Composable
-fun CityItem(city: City, navController: NavController) {
+fun CityItem(context: Context, city: City, navController: NavController) {
     var expanded by remember { mutableStateOf(false) }
 
     Card(

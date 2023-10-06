@@ -23,7 +23,7 @@ fun AppNavigation(){
                 navArgument( name = "url"){ type = NavType.StringType}
             )
         ){
-            showCityScreen(navController, it.arguments?.getString("url"))
+            showCityScreen(LocalContext.current , navController, it.arguments?.getString("url"))
         }
     }
 }
